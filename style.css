@@ -3,6 +3,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -31,6 +32,10 @@ body {
 .main-wrapper .workspace-wrapper .editor-wrapper {
     background-color: rgba(255, 2, 255, 1);
     flex-basis: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .main-wrapper .workspace-wrapper .info-wrapper {
@@ -50,3 +55,40 @@ body {
 }
 
 /* PRIMARY LAYOUT END */
+
+.main-wrapper .workspace-wrapper .editor-wrapper > * {
+    padding: 10px;
+}
+
+.main-wrapper .workspace-wrapper .editor-wrapper .controls-wrapper {
+    display: flex;
+    justify-content: space-around;
+    flex-basis: 10%;
+    width: 90%;
+    background: rgba(240, 240, 240, 0.7);
+}
+
+.main-wrapper .workspace-wrapper .editor-wrapper .controls-wrapper * {
+    align-self: center;
+    min-height: 25px;
+    border: none;
+    border-radius: 3px;
+    background: rgba(240, 240, 240, 1);
+    padding: 3px;
+}
+
+.main-wrapper .workspace-wrapper .editor-wrapper .controls-wrapper .controls.btn {
+    min-width: 25px;
+    cursor: pointer;
+}
+
+.main-wrapper .workspace-wrapper .editor-wrapper .controls-wrapper .controls .input {
+    align-self: center;
+    background: rgba(255, 255, 255, 1);
+}
+
+.main-wrapper .workspace-wrapper .editor-wrapper .editor {
+    background: rgba(255, 255, 255, 1);
+    flex-basis: 85%;
+    width: 90%;
+}
