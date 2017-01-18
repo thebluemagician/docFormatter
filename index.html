@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Maven+Pro" rel="stylesheet">
+        <link href="https://cdn.quilljs.com/1.1.10/quill.snow.css" rel="stylesheet">
         <link href="style.css" rel="stylesheet">
     </head>
     <body>
@@ -19,7 +20,8 @@
                     </div>
                 </div>
                 <div class="editor-wrapper">
-                    <div class="controls-wrapper">
+                    <div class="controls-wrapper" id="toolbar">
+                        <!--
                         <button class="controls btn bold">B</button>
                         <button class="controls btn italic">I</button>
                         <button class="controls btn underline">U</button>
@@ -37,14 +39,16 @@
                                 <option value="Arial">Raleway</option>
                             </select>
                         </div>
+                        -->
                     </div>
-                    <div class="editor" contenteditable="true">
+                    <div class="editor" id="editor" contenteditable="true">
                         <!-- rich text editor -->
                     </div>
                 </div>
             </div>
         </div>
 
+        <script src="https://cdn.quilljs.com/1.1.10/quill.js"></script>
         <script src='app.js' type="text/javascript"></script>
     </body>
 </html>
