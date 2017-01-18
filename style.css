@@ -60,15 +60,12 @@ body {
     padding: 10px;
 }
 
-/*
-
 .main-wrapper .workspace-wrapper .editor-wrapper .controls-wrapper {
     display: flex;
     justify-content: space-around;
     flex-basis: 10%;
     width: 90%;
     background: rgba(240, 240, 240, 0.7);
-
 }
 
 .main-wrapper .workspace-wrapper .editor-wrapper .controls-wrapper * {
@@ -90,7 +87,6 @@ body {
     background: rgba(255, 255, 255, 1);
 }
 
-*/
 .main-wrapper .workspace-wrapper .editor-wrapper .editor {
     background: rgba(255, 255, 255, 1);
     flex-basis: 85%;
