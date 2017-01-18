@@ -9,7 +9,7 @@ controlBtns[2].addEventListener('click', () => document.execCommand('underline',
 controlBtns[3].addEventListener('click', () => document.execCommand('strikethrough', false, null) );
 
 editor.addEventListener('keydown', function() {
-	document.execCommand('fontSize', false, `${fontSize.value}`);
+	document.execCommand('fontSize', false, fontSize.value);
 });
 
 fontFamily.addEventListener('input', function() {
