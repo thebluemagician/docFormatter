@@ -1,3 +1,5 @@
+// EDITOR
+
 const editor = document.querySelector('.editor');
 const controlBtns = [...document.querySelectorAll('.controls.btn')];
 const fontSize = document.querySelector('#font-size');
@@ -14,4 +16,52 @@ editor.addEventListener('keydown', function() {
 
 fontFamily.addEventListener('input', function() {
 	document.execCommand('fontName', false, this.value);
+});
+
+// TREEVIEW
+
+const tree = document.querySelector('.tree-wrapper');
+const root = document.querySelector('.root');
+
+tree.addEventListener('click', e => {
+	const target = e.srcElement;
+	const parent = target.parentElement;
+	if ([...target.classList].includes('add')) {
+		const ul = parent.querySelector('ul') || function(){
+			let result = document.createElement('ul');
+			parent.appendChild(result);
+			return result;
+		}();
+		const li = document.createElement('li');
+		const button = document.createElement('button');
+		button.textContent = `+`;
+		button.classList.add('btn');
+		button.classList.add('add');
+		const span = document.createElement('span');
+		span.textContent = `Double-click to edit`;
+		span.classList.add('sub-title');
+		li.classList.add('node');
+		li.appendChild(span);
+		li.appendChild(button);
+		ul.appendChild(li);
+	}
+});
+
+root.addEventListener('dblclick', (e) => {
+	const target = e.target;
+	if ([...target.classList].includes('sub-title')) {
+		const cache = target.textContent;
+		target.contentEditable = true;
+		target.focus();	
+		const save = function() {
+			const closure = function() {
+				this.removeAttribute('autofocus');
+				this.removeAttribute('contentEditable');
+				target.removeEventListener('blur', closure);
+				target.textContent = target.textContent || cache;
+			};
+			return closure;
+		}();
+		target.addEventListener('blur', save);
+	}
 });
