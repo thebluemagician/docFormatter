@@ -57,21 +57,24 @@ body {
 
 /* TREEVIEW LAYOUT */
 
-.main-wrapper .tree-wrapper .root ul {
-    margin-left: 5px;
+.main-wrapper .tree-wrapper .root > ul,
+.main-wrapper .tree-wrapper .node > ul {
+    padding: 5px;
+    margin-left: 20px;
+    border-radius: 7px;
+}
+
+.main-wrapper .tree-wrapper .root ul > li {
+    list-style: none;
 }
 
 .main-wrapper .tree-wrapper .node > ul {
-    margin-left: 5px;
     background: rgba(255, 255, 255, 0.3);
 }
 
-.main-wrapper .tree-wrapper .root > ul li:not(last-child) {
-    list-style-image: url(./assets/child.svg);
-}
-
-.main-wrapper .tree-wrapper .root > ul li:last-child {
-    list-style-image: url(./assets/lastChild.svg);
+.main-wrapper .tree-wrapper .root > .btn {
+    background: transparent;
+    border: none;
 }
 
 /* EDITOR LAYOUT */
