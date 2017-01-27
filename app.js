@@ -23,6 +23,17 @@ fontFamily.addEventListener('input', function() {
 const tree = document.querySelector('.tree-wrapper');
 const root = document.querySelector('.root');
 
+function parentIcon(parent) {
+	const icon = parent.querySelector('.expand');
+	if (parent.querySelector('ul')) {
+		icon.classList.remove('fa-file');
+		icon.classList.add('fa-folder');
+	} else {
+		icon.classList.remove('fa-folder');
+		icon.classList.add('fa-file');
+	}
+}
+
 tree.addEventListener('click', e => {
 	const target = e.srcElement;
 	const parent = target.parentElement;
@@ -35,7 +46,7 @@ tree.addEventListener('click', e => {
 		const collapse = document.createElement('i');
 		collapse.classList.add('fa');
 		collapse.classList.add('fa-file');
-		collapse.classList.add('collapse');
+		collapse.classList.add('expand');
 		collapse.ariaHidden = 'true';
 		const li = document.createElement('li');
 		const button = document.createElement('i');
@@ -43,13 +54,14 @@ tree.addEventListener('click', e => {
 		button.classList.add('fa-plus');
 		button.ariaHidden = 'true';
 		const span = document.createElement('span');
-		span.textContent = `Double-click to edit `;
+		span.textContent = ` Double-click to edit `;
 		span.classList.add('sub-title');
 		li.classList.add('node');
 		li.appendChild(collapse);
 		li.appendChild(span);
 		li.appendChild(button);
 		ul.appendChild(li);
+		parentIcon(parent);
 	}
 });
 
