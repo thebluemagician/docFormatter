@@ -5,6 +5,8 @@ const controlBtns = [...document.querySelectorAll('.controls.btn')];
 const fontSize = document.querySelector('#font-size');
 const fontFamily = document.querySelector('#font-family');
 
+const dataSet = {};
+
 controlBtns[0].addEventListener('click', () => document.execCommand('bold', false, null) );
 controlBtns[1].addEventListener('click', () => document.execCommand('italic', false, null) );
 controlBtns[2].addEventListener('click', () => document.execCommand('underline', false, null) );
@@ -53,12 +55,13 @@ tree.addEventListener('click', e => {
 		button.classList.add('fa');
 		button.classList.add('fa-plus');
 		button.ariaHidden = 'true';
-		const span = document.createElement('span');
-		span.textContent = ` Double-click to edit `;
-		span.classList.add('sub-title');
+		const link = document.createElement('a');
+		link.href = '#/'
+		link.textContent = ` Double-click to edit `;
+		link.classList.add('sub-title');
 		li.classList.add('node');
 		li.appendChild(collapse);
-		li.appendChild(span);
+		li.appendChild(link);
 		li.appendChild(button);
 		ul.appendChild(li);
 		parentIcon(parent);
@@ -73,13 +76,32 @@ root.addEventListener('dblclick', (e) => {
 		target.focus();	
 		const save = function() {
 			const closure = function() {
-				this.removeAttribute('autofocus');
 				this.removeAttribute('contentEditable');
 				target.removeEventListener('blur', closure);
-				target.textContent = target.textContent || cache;
+				target.textContent = target.textContent.trim() || cache;
+				const linkValue = target.textContent.split(' ').filter(x => x).join('-').toLowerCase();
+				target.href = `#/${linkValue}`;
+				target.setAttribute('data-link', linkValue);
 			};
 			return closure;
 		}();
 		target.addEventListener('blur', save);
 	}
 });
+
+// LOCAL STORAGE
+window.addEventListener('hashchange', function(e) {
+	const location = this.location.hash.substring(2, this.location.hash.length);
+	const currentData = JSON.parse(window.localStorage.docFormatter);
+	editor.innerHTML = currentData[location];
+});
+
+function store() {
+	const data = String(this.innerHTML);
+	const subtitle = String(window.location.hash.substring(2, window.location.hash.length));
+	dataSet.title = "Demo Paper";
+	dataSet[subtitle] = data;
+	window.localStorage.setItem('docFormatter', JSON.stringify(dataSet));
+}
+
+editor.addEventListener('input', store);
