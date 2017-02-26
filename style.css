@@ -4,6 +4,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+a,
+a:visited,
+a:active {
+    text-decoration: none;
+    color: inherit;
 }
 
 body {
@@ -20,7 +28,11 @@ body {
 .main-wrapper .tree-wrapper {
     background-color: rgba(200, 200, 2, 1);
     flex-basis: 30%;
+<<<<<<< HEAD
     padding-left: 20px;
+=======
+    overflow: scroll;
+>>>>>>> 395d6b0e782f95adf3ccd9871ec0e99e317f693f
 }
 
 .main-wrapper .workspace-wrapper {
@@ -48,6 +60,10 @@ body {
 .main-wrapper .workspace-wrapper .info-wrapper .title-wrapper {
     background-color: rgba(2, 255, 255, 1);
     flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .main-wrapper .workspace-wrapper .info-wrapper .meta-wrapper {
@@ -79,39 +95,56 @@ body {
 
 /* EDITOR LAYOUT */
 
-.main-wrapper .workspace-wrapper .editor-wrapper > * {
-    padding: 10px;
+/* TREEVIEW LAYOUT */
+
+.main-wrapper .tree-wrapper .fa {
+    padding: 0 5px;
+    cursor: pointer;
 }
 
+.main-wrapper .tree-wrapper a.active {
+    background-color: rgba(0, 0, 0, 1);
+    color: rgba(200, 200, 2, 1);    
+}
+
+<<<<<<< HEAD
 .main-wrapper .workspace-wrapper .editor-wrapper .controls-wrapper {
     display: flex;
     justify-content: space-around;
     flex-basis: 10%;
     width: 90%;
     background: rgba(240, 240, 240, 0.7);
+=======
+.main-wrapper .tree-wrapper .root > ul,
+.main-wrapper .tree-wrapper .node > ul {
+    padding: 5px;
+    margin-left: 20px;
+    border-radius: 7px;
 }
 
-.main-wrapper .workspace-wrapper .editor-wrapper .controls-wrapper * {
-    align-self: center;
-    min-height: 25px;
+.main-wrapper .tree-wrapper .root ul > li {
+    list-style: none;
+}
+
+.main-wrapper .tree-wrapper .node > ul {
+    background: rgba(255, 255, 255, 0.3);
+>>>>>>> 395d6b0e782f95adf3ccd9871ec0e99e317f693f
+}
+
+.main-wrapper .tree-wrapper .root > .btn {
+    background: transparent;
     border: none;
-    border-radius: 3px;
-    background: rgba(240, 240, 240, 1);
-    padding: 3px;
 }
 
-.main-wrapper .workspace-wrapper .editor-wrapper .controls-wrapper .controls.btn {
-    min-width: 25px;
-    cursor: pointer;
-}
+/* EDITOR LAYOUT */
 
-.main-wrapper .workspace-wrapper .editor-wrapper .controls-wrapper .controls .input {
-    align-self: center;
-    background: rgba(255, 255, 255, 1);
+.main-wrapper .workspace-wrapper .editor-wrapper > * {
+    padding: 10px;
 }
 
 .main-wrapper .workspace-wrapper .editor-wrapper .editor {
     background: rgba(255, 255, 255, 1);
     flex-basis: 85%;
     width: 90%;
+    overflow: scroll;
 }
