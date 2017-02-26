@@ -1,4 +1,12 @@
-const currentData = window.localStorage.docFormatter ? JSON.parse(window.localStorage.docFormatter) : { currentNode: 1, 'root': { title: 'The Title', data: ''}}
+const currentData = window.localStorage.docFormatter ? JSON.parse(window.localStorage.docFormatter) : {
+	currentNode: 1,
+	'root': {
+		title: 'The Title',
+		data: ''
+	}
+};
+
+loadTree();
 
 function pushToLocalStorage() {
 	window.localStorage.setItem('docFormatter', JSON.stringify(currentData));
@@ -55,42 +63,54 @@ tree.addEventListener('click', e => {
 	const target = e.srcElement;
 	const parent = target.parentElement;
 	if ([...target.classList].includes('fa-plus')) {
-		const ul = parent.querySelector('ul') || function(){
-			let result = document.createElement('ul');
-			parent.appendChild(result);
-			return result;
-		}();
-		const collapse = document.createElement('i');
-		collapse.classList.add('fa');
-		collapse.classList.add('fa-file');
-		collapse.classList.add('expand');
-		collapse.ariaHidden = 'true';
-		const li = document.createElement('li');
-		const button = document.createElement('i');
-		button.classList.add('fa');
-		button.classList.add('fa-plus');
-		button.ariaHidden = 'true';
-		const link = document.createElement('a');
-
-		const node = getNodeNo.next().value;
-		link.href = `#/${node}`;
-		link.textContent = `Untitled`;
-		link.setAttribute('data-link', node);
-		
+		const node = getNodeNo.next().value;	
 		currentData[node] = {};
 		currentData[node]['data'] = 'Start writing...';
 		currentData[node]['title'] = 'Untitled';
-
+		currentData[node]['parent'] = parent.id;
+		renderNode(parent, node);
 		pushToLocalStorage();
-		
-		li.classList.add('node');
-		li.appendChild(collapse);
-		li.appendChild(link);
-		li.appendChild(button);
-		ul.appendChild(li);
-		parentIcon(parent);
 	}
 });
+
+function loadTree() {
+	for (let i in currentData) {
+		if (currentData[i].parent) {
+			const parent = document.querySelector(`#${currentData[i].parent}`);
+			const node = i;
+			renderNode(parent, node);
+		}
+	}
+}
+
+function renderNode(parent, node) {
+	const ul = parent.querySelector('ul') || function(){
+		let result = document.createElement('ul');
+		parent.appendChild(result);
+		return result;
+	}();
+  const collapse = document.createElement('i');
+  collapse.classList.add('fa');
+  collapse.classList.add('fa-file');
+  collapse.classList.add('expand');
+  collapse.ariaHidden = 'true';
+  const li = document.createElement('li');
+  const button = document.createElement('i');
+  button.classList.add('fa');
+  button.classList.add('fa-plus');
+  button.ariaHidden = 'true';
+  const link = document.createElement('a');
+  link.href = `#/${node}`;
+	link.textContent = currentData[node]['title'];
+	link.setAttribute('data-link', node);
+  li.id = node;
+	li.classList.add('nodes');
+  li.appendChild(collapse);
+  li.appendChild(link);
+  li.appendChild(button);
+  ul.appendChild(li);
+  parentIcon(parent);
+}
 
 // DATA STORAGE AND LINKAGE
 
@@ -141,11 +161,20 @@ function removeNode() {
 		return;
 	}
 	delete currentData[node];
+	deleteChildren(node);
 	pushToLocalStorage();
 	const element = root.querySelector(`a[data-link=${node}]`);
 	const ul = element.parentElement.parentElement;
 	const li = element.parentElement;
 	ul.removeChild(li);
+}
+
+function deleteChildren(node) {
+	for (let i in currentData) {
+		if (currentData[i].parent === node) {
+			delete currentData[i];
+		}
+	}
 }
 
 editor.addEventListener('input', storeData);
@@ -155,4 +184,4 @@ remove.addEventListener('click', removeNode);
 document.querySelector('.format').addEventListener('click', () => {
 	window.localStorage.removeItem('docFormatter');
 	window.location.reload();
-})
+});

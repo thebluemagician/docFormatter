@@ -82,7 +82,7 @@ body {
 }
 
 .main-wrapper .tree-wrapper .root > ul,
-.main-wrapper .tree-wrapper .node > ul {
+.main-wrapper .tree-wrapper .nodes > ul {
     padding: 5px;
     margin-left: 20px;
     border-radius: 7px;
@@ -92,7 +92,7 @@ body {
     list-style: none;
 }
 
-.main-wrapper .tree-wrapper .node > ul {
+.main-wrapper .tree-wrapper .nodes > ul {
     background: rgba(255, 255, 255, 0.3);
 }
 
