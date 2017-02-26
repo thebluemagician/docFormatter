@@ -173,6 +173,7 @@ function deleteChildren(node) {
 	for (let i in currentData) {
 		if (currentData[i].parent === node) {
 			delete currentData[i];
+			deleteChildren(i);
 		}
 	}
 }
@@ -180,8 +181,3 @@ function deleteChildren(node) {
 editor.addEventListener('input', storeData);
 titleName.addEventListener('input', storeTitle);
 remove.addEventListener('click', removeNode);
-
-document.querySelector('.format').addEventListener('click', () => {
-	window.localStorage.removeItem('docFormatter');
-	window.location.reload();
-});
