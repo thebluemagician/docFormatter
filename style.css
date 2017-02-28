@@ -124,8 +124,10 @@ body {
 
     /* overflowing text and images*/
     /* word-wrap: break-word; */
-    overflow-wrap:break-word;
+    
+    overflow-y: auto;
+    overflow-x:hidden;
     white-space: normal;
-    overflow: auto;
-    padding: 10px;
+    overflow-wrap:break-word;
+    padding: 20px;
 }
