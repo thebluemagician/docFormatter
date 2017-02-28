@@ -121,4 +121,11 @@ body {
     background: rgba(255, 255, 255, 1);
     flex-basis: 85%;
     width: 90%;
+
+    /* overflowing text and images*/
+    /* word-wrap: break-word; */
+    overflow-wrap:break-word;
+    white-space: normal;
+    overflow: auto;
+    padding: 20px;
 }
