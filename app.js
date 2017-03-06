@@ -1,3 +1,6 @@
+window.location.hash = '';
+window.location.hash = '/root';
+
 const currentData = window.localStorage.docFormatter ? JSON.parse(window.localStorage.docFormatter) : {
 	currentNode: 1,
 	'root': {
@@ -115,17 +118,19 @@ function getCurrentAddress() {
 }
 
 window.addEventListener('hashchange', function(e) {
-	const location = getCurrentAddress();
-	const activeLink = root.querySelector(`a[data-link=${location}]`);
-	[...root.querySelectorAll('a')].forEach( a => {
-		if (a.getAttribute('data-link') === location) {
-			a.classList.add('active');
-		} else {
-			a.classList.remove('active');
-		}
-	});
-	editor.innerHTML = currentData[location]['data'];
-	titleName.value = currentData[location]['title'];
+	if (this.location.hash) {
+		const location = getCurrentAddress();
+		const activeLink = root.querySelector(`a[data-link=${location}]`);
+		[...root.querySelectorAll('a')].forEach( a => {
+			if (a.getAttribute('data-link') === location) {
+				a.classList.add('active');
+			} else {
+				a.classList.remove('active');
+			}
+		});
+		editor.innerHTML = currentData[location]['data'];
+		titleName.value = currentData[location]['title'];
+	}
 });
 
 function storeData() {
@@ -161,6 +166,7 @@ function removeNode() {
 	const ul = element.parentElement.parentElement;
 	const li = element.parentElement;
 	ul.removeChild(li);
+	window.location.hash = '/root';
 }
 
 function deleteChildren(node) {
@@ -173,7 +179,9 @@ function deleteChildren(node) {
 }
 
 editor.addEventListener('input', storeData);
-editor.addEventListener('paste', storeData);
+editor.addEventListener('paste', function() {
+	window.setTimeout(() => storeData.bind(this)(), 1000);
+});
 titleName.addEventListener('input', storeTitle);
 titleName.addEventListener('paste', storeTitle);
 remove.addEventListener('click', removeNode);
