@@ -6,6 +6,8 @@ const currentData = window.localStorage.docFormatter ? JSON.parse(window.localSt
 	}
 };
 
+const tree = document.querySelector('.tree-wrapper');
+
 loadTree();
 
 function pushToLocalStorage() {
@@ -37,8 +39,6 @@ const quill = new Quill('#editor', {
 });
 
 // TREE
-
-const tree = document.querySelector('.tree-wrapper');
 
 function parentIcon(parent) {
 	const icon = parent.querySelector('.expand');
@@ -74,6 +74,7 @@ tree.addEventListener('click', e => {
 });
 
 function loadTree() {
+	tree.querySelector('.title').textContent = currentData.root.title;
 	for (let i in currentData) {
 		if (currentData[i].parent) {
 			const parent = document.querySelector(`#${currentData[i].parent}`);
@@ -84,32 +85,21 @@ function loadTree() {
 }
 
 function renderNode(parent, node) {
-	const ul = parent.querySelector('ul') || function(){
+	const ul = parent.querySelector('ul') || function() {
 		let result = document.createElement('ul');
 		parent.appendChild(result);
 		return result;
 	}();
-  const collapse = document.createElement('i');
-  collapse.classList.add('fa');
-  collapse.classList.add('fa-file');
-  collapse.classList.add('expand');
-  collapse.ariaHidden = 'true';
-  const li = document.createElement('li');
-  const button = document.createElement('i');
-  button.classList.add('fa');
-  button.classList.add('fa-plus');
-  button.ariaHidden = 'true';
-  const link = document.createElement('a');
-  link.href = `#/${node}`;
-	link.textContent = currentData[node]['title'];
-	link.setAttribute('data-link', node);
-  li.id = node;
+	const li = document.createElement('li');
+	li.id = node;
 	li.classList.add('nodes');
-  li.appendChild(collapse);
-  li.appendChild(link);
-  li.appendChild(button);
-  ul.appendChild(li);
-  parentIcon(parent);
+	li.innerHTML = `
+		<i class="fa fa-file expand" aria-hidden="true"></i>
+		<a href="#/${node}" data-link="${node}">${currentData[node]['title']}</a>
+		<i class="fa fa-plus" aria-hidden="true"></i>
+	`;
+	ul.appendChild(li);
+	parentIcon(parent);
 }
 
 // DATA STORAGE AND LINKAGE
@@ -150,8 +140,12 @@ function storeTitle() {
 	const value = this.value.trim();
 	currentData[node]['title'] = value;
 	pushToLocalStorage();
-	const element = root.querySelector(`a[data-link=${node}]`);
-	element.textContent = value;
+	if (node === 'root') {
+		root.querySelector('.title').textContent = value;
+	} else {
+		const element = root.querySelector(`a[data-link=${node}]`);
+		element.textContent = value;
+	}
 }
 
 function removeNode() {
@@ -179,5 +173,72 @@ function deleteChildren(node) {
 }
 
 editor.addEventListener('input', storeData);
+editor.addEventListener('paste', storeData);
 titleName.addEventListener('input', storeTitle);
+titleName.addEventListener('paste', storeTitle);
 remove.addEventListener('click', removeNode);
+
+// PRINT THE DOC
+
+const printBtn = document.querySelector('.print');
+
+printBtn.addEventListener('click', print);
+
+function print() {
+	let virtualDoc = '';
+
+	for ( let key of Object.keys(currentData)) {
+		if (key !== 'currentNode') {
+			virtualDoc += `
+				<div class='${key} nodes' >
+					<div class='title'>${currentData[key].title}</div>
+					<div class='data'>
+						${currentData[key].data}
+					</div>
+				</div>
+			`;
+		}
+	}
+
+	const body = document.querySelector('body');
+	const frame = document.createElement('iframe');
+	frame.setAttribute('src', 'about:blank');
+	frame.setAttribute('name', 'doc');
+	body.appendChild(frame);
+	const doc = window.frames['doc'];
+	doc.document.body.innerHTML = `
+		${demoStyle}
+		${virtualDoc}
+	`;
+
+	console.log(doc.document.body.innerHTML);
+	doc.window.focus();
+	doc.window.print();
+	body.removeChild(frame);
+}
+
+// STYLES FOR THE PRINT
+
+var demoStyle = `
+	<style>
+		body::first-line {
+			font-size: 20px;
+			font-weight: bold;
+			text-decoration: underline;
+		}
+
+		.nodes {
+			display: block;
+			text-align: justify;
+		}
+
+		.nodes .title {
+			font-size: 14px;
+			font-weight: bold;
+		}
+
+		.nodes .data {
+			font-size: 12px;
+		}
+	</style>
+`;
