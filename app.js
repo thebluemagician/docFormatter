@@ -37,8 +37,7 @@ const toolbarOptions = [
 const quill = new Quill('#editor', {
 	theme: 'snow',
 	modules: {
-		toolbar:;
-
+		toolbar: toolbarOptions
 	}
 });
 
@@ -195,10 +194,24 @@ printBtn.addEventListener('click', print);
 
 function print() {
 	let virtualDoc = '';
+	let virtualDoc_root='';
 
 	for ( let key of Object.keys(currentData)) {
 		if (key !== 'currentNode') {
+			if(key == 'root'){
 			virtualDoc += `
+				<div class='${key} nodes main-root' >
+					<div class='title' id='main-title'>${currentData[key].title}</div>
+					<div class='data meta-data'>
+						${currentData[key].data}
+					</div>
+				</div>
+			`;
+		
+			}
+			else{
+
+				virtualDoc += `
 				<div class='${key} nodes' >
 					<div class='title'>${currentData[key].title}</div>
 					<div class='data'>
@@ -206,8 +219,10 @@ function print() {
 					</div>
 				</div>
 			`;
+			}
 		}
 	}
+	
 
 	const body = document.querySelector('body');
 	const frame = document.createElement('iframe');
@@ -216,8 +231,10 @@ function print() {
 	body.appendChild(frame);
 	const doc = window.frames['doc'];
 	doc.document.body.innerHTML = `
-		${demoStyle}
 		${virtualDoc}
+		${demoStyle}
+
+		//${virtualDoc_root}
 	`;
 
 	console.log(doc.document.body.innerHTML);
@@ -230,24 +247,57 @@ function print() {
 
 var demoStyle = `
 	<style>
-		body::first-line {
-			font-size: 20px;
-			font-weight: bold;
-			text-decoration: underline;
+		html{
+			background-color:#fff;
+			margin:0px;
 		}
+		body{
+			max-width:21.00cm;
+			max-height:29.70cm;
 
+			margin:5.2cm 4.401cm 5.2cm 4.401cm;			
+			border:0px solid black;
+			page-break-after:right;
+		}
+		@page{
+			size:auto;
+			margin:0mm;
+		}
+		/*
+		body::first-line {
+			font-size: 14px;
+			font-weight: bold;
+			text-decoration: none;
+			text-align: right;
+		} */
 		.nodes {
 			display: block;
 			text-align: justify;
 		}
 
 		.nodes .title {
-			font-size: 14px;
+			font-size: 12px;
 			font-weight: bold;
 		}
 
 		.nodes .data {
-			font-size: 12px;
+			font-size: 10px;
+			text-align:justify;
+		}
+
+		#main-title, .meta-data{
+			font-weight:bold;
+			font-size:14px;
+			text-align:center;
+			width:280px;
+			margin:0 auto;
+		}
+		.meta-data>p{
+			font-size:10px;
+			font-weight:normal;
+			text-align:center;
+			margin-bottom:20px;
+
 		}
 	</style>
 `;
