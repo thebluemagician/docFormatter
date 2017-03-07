@@ -37,7 +37,8 @@ const toolbarOptions = [
 const quill = new Quill('#editor', {
 	theme: 'snow',
 	modules: {
-		toolbar: toolbarOptions
+		toolbar:;
+
 	}
 });
 
