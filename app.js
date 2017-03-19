@@ -142,7 +142,7 @@ function storeData() {
 
 function storeTitle() {
 	const node = getCurrentAddress();
-	const value = this.value.trim();
+	const value = this.value.trim() || 'Untitled';
 	currentData[node]['title'] = value;
 	pushToLocalStorage();
 	if (node === 'root') {
