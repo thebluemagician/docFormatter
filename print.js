@@ -130,6 +130,8 @@ var demoStyle = `
 
 		.nodes > .nodes {
 			padding: 15px
+            margin-left:0;
+			padding-left:0;
 		}
 
 		.nodes .title {
