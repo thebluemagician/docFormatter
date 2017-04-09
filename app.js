@@ -112,6 +112,15 @@ tree.addEventListener('click', e => {
 	}
 });
 
+tree.addEventListener('dblclick', e => {
+	if ([...e.target.classList].includes('active')) {
+		e.preventDefault();
+		const currentAddress = getCurrentAddress();
+		window.location.hash = '';
+		window.location.hash = `/${currentAddress}`;
+	}
+});
+
 function loadTree() {
 	tree.querySelector('.title').textContent = currentData.root.title;
 	for (let i in currentData) {
