@@ -145,7 +145,6 @@ body {
 	padding: 2px;
 	margin-left: 10px;
 	border-radius: 5px;
-	
 }
 
 .main-wrapper .tree-wrapper .root ul > li {
@@ -154,6 +153,10 @@ body {
 
 .main-wrapper .tree-wrapper .nodes > ul {
 	background: rgba(255, 255, 255, 0.3);
+}
+
+.main-wrapper .tree-wrapper .nodes > ul:empty {
+	display: none;
 }
 
 .main-wrapper .tree-wrapper .root > .btn {
