@@ -57,6 +57,7 @@
      		padding: 3rem 2rem;
 			max-height: 40rem;
 			line-height: 1;	
+			font-weight: bold;
 	}
 	a{
 		color:whitesmoke;
@@ -70,7 +71,7 @@
 		padding:4px;
 		
 	}
-	p>a:hover{
+	a:hover{
 		color: #1b1f22;
 		background-color:white;
 		outline: none;
