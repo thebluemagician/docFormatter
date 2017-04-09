@@ -42,26 +42,26 @@ const quill = new Quill('#editor', {
 //Modal and tooltip container
 
 window.onload = function () {
-    cl=document.querySelectorAll(".close-btn")
+    cl = document.querySelectorAll(".close-btn")
 	for(each in cl){
 		cl[each].onclick = function () {
         document.getElementById('modal').style.display = "none"
 		};
     }
 };
-function modal_display(){
+function modal_display() {
 	document.querySelector('#modal').style.display='block';
 }
 
-function tooltip_visible(){
-	tp=document.querySelectorAll(".tooltip,.tooltiptext");
+function tooltip_visible() {
+	tp = [...document.querySelectorAll(".tooltip,.tooltiptext")];
 	for( var each in tp){
 		tp[each].style.visibility='visible';
 	}	
 }
-document.querySelector('.tree-wrapper').onclick=function(){
-	tp=document.querySelector(".tooltiptext");
-	tp.style.visibility='hidden';    
+document.querySelector('.tree-wrapper').onclick = function(){
+	tp = document.querySelector(".tooltiptext");
+	tp.style.visibility = 'hidden';    
 }
 
 // TREE
@@ -155,7 +155,6 @@ window.addEventListener('hashchange', function(e) {
 		editor.innerHTML = currentData[location]['data'];
 		titleName.value = currentData[location]['title'];
 		tooltip_visible();
-
 	}
 });
 
