@@ -182,16 +182,15 @@ body {
     transform: translate(-50%, -50%);
     background: #fff;
     width: 70%;
-	height: 50%;
+	height: 40%;
     padding: 20px;
 	border:2px solid black;
 	border-radius: 10px;
 	text-align: center;
 	
 }
-.modalconent textarea{
+.modalconent input{
 	width: 88%;
-	height: 100px;
 	border:1px solid black;
 	border-radius: 5px;
 	padding:5px 10px;
@@ -210,8 +209,9 @@ body {
 
 
 .tooltip {
-    position: relative;
+    position: absolute;
     display: inline-block;
+		margin-left: -20px;
 }
 .tooltip i{
 	margin:0px 10px;
@@ -221,7 +221,6 @@ body {
 	color: rgb(0,188,199);
 }
 .tooltiptext {
-    visibility: hidden;
     width: 150px;
     background-color:rgba(0,0,0,0.6);
     color: #fff;

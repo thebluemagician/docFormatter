@@ -40,27 +40,39 @@ const quill = new Quill('#editor', {
 //Modal and tooltip container
 
 window.onload = function () {
-    cl = [...document.querySelectorAll(".close-btn")];
-		for(each in cl){
-			cl[each].onclick = function () {
-        document.getElementById('modal').style.display = "none";
-			};
-    }
+	const cl = document.querySelector(".close-btn");
+	cl.onclick = function () {
+		document.getElementById('modal').style.display = "none";
+	}
 };
+
 function modal_display() {
 	document.querySelector('#modal').style.display='block';
 }
 
-function tooltip_visible() {
-	tp = [...document.querySelectorAll(".tooltip,.tooltiptext")];
-	console.dir(tp);
-	for( var each in tp){
-		tp[each].style.visibility='visible';
-	}	
+function tooltip() {
+	clearTooltips();
+	const currentAddress = getCurrentAddress();
+	const currentNode = document.querySelector(`#${currentAddress} .fa.fa-plus`);
+	const tp = document.createElement('div');
+	tp.className = 'tooltip';
+	tp.innerHTML = `
+	<span class="tooltiptext">
+		<i class="fa fa-pencil" aria-hidden="true" onclick="modal_display()"></i>
+		<i class="fa fa-files-o" aria-hidden="true"></i>
+		<i class="fa fa-scissors" aria-hidden="true"></i>
+	</span>
+	`;
+	insertAfter(tp, currentNode);
 }
-document.querySelector('.tree-wrapper').onclick = function(){
-	tp = document.querySelector(".tooltiptext");
-	tp.style.visibility = 'hidden';    
+
+function insertAfter(newElement, refElement) {
+	refElement.parentNode.insertBefore(newElement, refElement.nextSibling);
+}
+
+function clearTooltips() {
+	const tp = document.querySelector(".tooltip");
+	if (tp) { tp.parentNode.removeChild(tp); }
 }
 
 // TREE
@@ -153,7 +165,7 @@ window.addEventListener('hashchange', function(e) {
 		});
 		editor.innerHTML = currentData[location]['data'];
 		titleName.value = currentData[location]['title'];
-		tooltip_visible();
+		tooltip();
 	}
 });
 
@@ -204,7 +216,7 @@ function deleteChildren(node) {
 }
 
 editor.addEventListener('input', storeData);
-editor.addEventListener('paste', function() {
+editor.addEventListener('focus', function() {
 	window.setTimeout(() => storeData.bind(this)(), 1000);
 });
 titleName.addEventListener('input', storeTitle);
