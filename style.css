@@ -53,6 +53,28 @@ body {
 	
 }
 
+.main-wrapper .workspace-wrapper .editor-wrapper #editor {
+	overflow: hidden;
+	padding: 0;
+}
+
+.main-wrapper .workspace-wrapper .editor-wrapper #editor .ql-editor::-webkit-scrollbar {
+	width: 5px;
+	background-color: rgba(172, 176, 185, 0.3);
+}
+
+.main-wrapper .workspace-wrapper .editor-wrapper #editor .ql-editor::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
+	background-color: rgba(172, 176, 185, 0.3);
+}
+
+.main-wrapper .workspace-wrapper .editor-wrapper #editor .ql-editor::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: rgba(172, 176, 185, 0.3);
+}
+
 .main-wrapper .workspace-wrapper .info-wrapper {
 	display: flex;
 	background-color: 	rgba(172,176,185,1);
@@ -176,14 +198,14 @@ body {
 
 }
 .modalconent {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #fff;
-    width: 70%;
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: #fff;
+	width: 70%;
 	height: 40%;
-    padding: 20px;
+	padding: 20px;
 	border:2px solid black;
 	border-radius: 10px;
 	text-align: center;

@@ -60,7 +60,7 @@ function tooltip() {
 	<span class="tooltiptext">
 		<i class="fa fa-pencil" aria-hidden="true" onclick="modal_display()"></i>
 		<i class="fa fa-files-o" aria-hidden="true"></i>
-		<i class="fa fa-scissors" aria-hidden="true"></i>
+		<i class="fa fa-trash" aria-hidden="true" onclick="removeNode()"></i>
 	</span>
 	`;
 	insertAfter(tp, currentNode);
@@ -74,6 +74,8 @@ function clearTooltips() {
 	const tp = document.querySelector(".tooltip");
 	if (tp) { tp.parentNode.removeChild(tp); }
 }
+
+document.addEventListener('click', clearTooltips);
 
 // TREE
 
