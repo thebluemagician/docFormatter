@@ -19,14 +19,12 @@ function pushToLocalStorage() {
 
 const toolbarOptions = [
   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  ['blockquote', 'code-block'],
+  ['blockquote', 'code-block', 'image'],
   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
   [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
   [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-
   [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
   [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
   [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
   [{ 'font': [] }],
   [{ 'align': [] }]
@@ -42,11 +40,11 @@ const quill = new Quill('#editor', {
 //Modal and tooltip container
 
 window.onload = function () {
-    cl = document.querySelectorAll(".close-btn")
-	for(each in cl){
-		cl[each].onclick = function () {
-        document.getElementById('modal').style.display = "none"
-		};
+    cl = [...document.querySelectorAll(".close-btn")];
+		for(each in cl){
+			cl[each].onclick = function () {
+        document.getElementById('modal').style.display = "none";
+			};
     }
 };
 function modal_display() {
@@ -55,6 +53,7 @@ function modal_display() {
 
 function tooltip_visible() {
 	tp = [...document.querySelectorAll(".tooltip,.tooltiptext")];
+	console.dir(tp);
 	for( var each in tp){
 		tp[each].style.visibility='visible';
 	}	
