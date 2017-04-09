@@ -30,48 +30,78 @@ body {
 }
 
 .main-wrapper .tree-wrapper {
-	background-color: rgba(200, 200, 2, 1);
+	background-color: rgba(0, 0, 0, 0.5);
 	flex-basis: 30%;
-	overflow: scroll;
+	overflow: none;
+	padding: 10px;
+	border-right: 2px solid rgba(0,0,0,0.5);
 }
 
 .main-wrapper .workspace-wrapper {
 	display: flex;
 	flex-direction: column;
-	background-color: rgba(200, 200, 2, 1);
 	flex-basis: 70%;
 }
 
 .main-wrapper .workspace-wrapper .editor-wrapper {
-	background-color: rgba(255, 2, 255, 1);
-	flex-basis: 80%;
+	background-color: 	rgba(199,202,209,0.8);
+	flex-basis: 90%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
+	
 }
 
 .main-wrapper .workspace-wrapper .info-wrapper {
 	display: flex;
-	background-color: rgba(255, 2, 255, 1);
-	flex-basis: 20%;
+	background-color: 	rgba(172,176,185,1);
+	flex-basis: 10%;
 }
 
 .main-wrapper .workspace-wrapper .info-wrapper .title-wrapper,
 .main-wrapper .workspace-wrapper .info-wrapper .meta-wrapper {
-	flex-basis: 50%;
+	flex-basis: 70%;
 	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
 	align-items: center;
+	flex-direction: row;
+	justify-content: space-between;
+		
 }
 
-.main-wrapper .workspace-wrapper .info-wrapper .title-wrapper	{
-	background-color: rgba(2, 255, 255, 1);
-}
+.main-wrapper .workspace-wrapper .info-wrapper .title-wrapper{
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	padding:0px 25px;
 
+}
 .main-wrapper .workspace-wrapper .info-wrapper .meta-wrapper {
-	background-color: rgba(2, 25, 255, 1);
+	border-left: 2px solid rgba(93,99,111,0.5);
+	display: flex;
+	flex-basis: 30%;
+	align-items: center;
+	padding: 0px 25px;
+	
+}
+.info-wrapper button{
+	margin-left: 10px;
+}
+.meta-wrapper button, .title-wrapper button{
+	width: 100px;
+	height: 30px;
+	background-color: rgba(172,176,185,1);
+	border:3px solid black;
+	color:black;
+	font-weight: bold;
+	text-transform: uppercase;
+		    
+}
+.info-wrapper button:hover{
+	color:white;
+	background-color: black;
+	font-weight: bolder;
+	
 }
 
 /* PRIMARY LAYOUT END */
@@ -85,14 +115,15 @@ body {
 
 .main-wrapper .tree-wrapper a.active {
 	background-color: rgba(0, 0, 0, 1);
-	color: rgba(200, 200, 2, 1);
+	color:white;
 }
 
 .main-wrapper .tree-wrapper .root > ul,
 .main-wrapper .tree-wrapper .nodes > ul {
-	padding: 5px;
-	margin-left: 20px;
-	border-radius: 7px;
+	padding: 2px;
+	margin-left: 10px;
+	border-radius: 5px;
+	
 }
 
 .main-wrapper .tree-wrapper .root ul > li {
@@ -111,12 +142,105 @@ body {
 /* EDITOR LAYOUT */
 
 .main-wrapper .workspace-wrapper .editor-wrapper > * {
-	padding: 10px;
+	padding: 10px 15px;
+	
 }
 
-.main-wrapper .workspace-wrapper .editor-wrapper .editor {
+.main-wrapper .workspace-wrapper .editor-wrapper .editor{
 	background: rgba(255, 255, 255, 1);
 	flex-basis: 85%;
-	width: 90%;
+	width: 95%;
 	overflow: scroll;
+}
+.ql-toolbar{
+	background-color: #edeef0;
+
+}
+
+#modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+	text-transform: uppercase;
+}
+.modalconent h5{
+	font-weight: bold;
+	text-align: center;
+	padding-bottom: 10px;
+	margin-top: -8px;
+	
+
+}
+.modalconent {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    width: 70%;
+	height: 50%;
+    padding: 20px;
+	border:2px solid black;
+	border-radius: 10px;
+	text-align: center;
+	
+}
+.modalconent textarea{
+	width: 88%;
+	height: 100px;
+	border:1px solid black;
+	border-radius: 5px;
+	padding:5px 10px;
+	resize: none;
+	font-family: Arial, Helvetica, sans-serif;	
+}
+.modalconent label{
+	font-size: 13px;
+	font-weight: bolder;
+	float: left;
+	margin-left:6%;
+}
+.modalconent button{
+	margin-top: 10px;
+}
+
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+.tooltip i{
+	margin:0px 10px;
+	margin-top: 4px;
+}
+.tooltip .fa:hover{
+	color: rgb(0,188,199);
+}
+.tooltiptext {
+    visibility: hidden;
+    width: 150px;
+    background-color:rgba(0,0,0,0.6);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 110%;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent black transparent transparent;
 }

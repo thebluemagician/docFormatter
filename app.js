@@ -8,9 +8,7 @@ const currentData = window.localStorage.docFormatter ? JSON.parse(window.localSt
 		data: ''
 	}
 };
-
 const tree = document.querySelector('.tree-wrapper');
-
 loadTree();
 
 function pushToLocalStorage() {
@@ -40,6 +38,31 @@ const quill = new Quill('#editor', {
 		toolbar: toolbarOptions
 	}
 });
+
+//Modal and tooltip container
+
+window.onload = function () {
+    cl=document.querySelectorAll(".close-btn")
+	for(each in cl){
+		cl[each].onclick = function () {
+        document.getElementById('modal').style.display = "none"
+		};
+    }
+};
+function modal_display(){
+	document.querySelector('#modal').style.display='block';
+}
+
+function tooltip_visible(){
+	tp=document.querySelectorAll(".tooltip,.tooltiptext");
+	for( var each in tp){
+		tp[each].style.visibility='visible';
+	}	
+}
+document.querySelector('.tree-wrapper').onclick=function(){
+	tp=document.querySelector(".tooltiptext");
+	tp.style.visibility='hidden';    
+}
 
 // TREE
 
@@ -115,6 +138,7 @@ const root = document.querySelector('.root');
 
 function getCurrentAddress() {
 	return String(window.location.hash.substring(2, window.location.hash.length));
+	
 }
 
 window.addEventListener('hashchange', function(e) {
@@ -130,6 +154,8 @@ window.addEventListener('hashchange', function(e) {
 		});
 		editor.innerHTML = currentData[location]['data'];
 		titleName.value = currentData[location]['title'];
+		tooltip_visible();
+
 	}
 });
 
@@ -138,6 +164,7 @@ function storeData() {
 	const node = getCurrentAddress();
 	currentData[node]['data'] = data;
 	pushToLocalStorage();
+	
 }
 
 function storeTitle() {

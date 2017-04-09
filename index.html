@@ -6,6 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Maven+Pro" rel="stylesheet">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+
 		<link href="https://cdn.quilljs.com/1.1.10/quill.snow.css" rel="stylesheet">
 		<link href="style.css" rel="stylesheet">
 	</head>
@@ -14,20 +16,37 @@
 			<div class="tree-wrapper">
 				<div class='root' id='root'>
 					<i class="fa fa-folder expand" aria-hidden="true"></i>
-					<a class="title" href="#/root" data-link='root'>The Title</a>
+					<div class="tooltip"> 
+						<a class="title" href="#/root" data-link='root'>The Title</a>
+						<span class="tooltiptext">
+							<i class="fa fa-pencil" aria-hidden="true" onclick="modal_display()"></i>
+							<i class="fa fa-files-o" aria-hidden="true"></i>
+							<i class="fa fa-scissors" aria-hidden="true"></i>
+						</span>
+					</div>					
 					<i class="fa fa-plus" aria-hidden="true"></i>
 				</div>
 			</div>
 			<div class="workspace-wrapper">
 				<div class="info-wrapper">
 					<div class="title-wrapper">
-						<label for='title-name'>Title Header</label>
-						<input name="title-name" type="text" class='title-name'>
-						<button type="button" class="remove">Remove this node</button>
+						<button id='root-title' onclick="modal_display()">Title</button>
+						<button type="button" class="remove">Remove</button>
+
+						<div id="modal" name="modal">
+							<div class="modalconent">
+								<h5>Paper Details</h5>								
+								<hr></hr><br>
+								<label for="title-name">paper Title</label><br>
+								<textarea placeholder="Paper title.." autofocus required class="title-name" name="title-name"></textarea> </br><br>
+								<button type="submit" class="close-btn">Submit</button>
+								<button class="close-btn">Close</button>
+							</div>
+						</div>
 					</div>
 					<div class="meta-wrapper">
-						<button type='button' class='format'>Clear All App Data</button>
-						<button class="print" type="button">Print</button>
+						<button type='button' class='format'><span class="fa fa-refresh">&nbsp;&nbsp;</span>Reset</button>
+						<button class="print" type="button"><span class="fa fa-print">&nbsp;&nbsp;</span>Print</button>
 					</div>
 				</div>
 				<div class="editor-wrapper">
