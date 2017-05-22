@@ -82,9 +82,6 @@ function print() {
 	body.appendChild(frame);
 	const doc = window.frames['doc'];
 	console.log(doc.document.documentElement);
-	// doc.document.body.innerHTML += `
-	// 	${demoStyle}
-	// `;
 	doc.document.head.innerHTML += `<title>Paper</title>
 		<meta charset="UTF-8">
 		<link href="quill.snow.css" rel="stylesheet">
@@ -98,7 +95,7 @@ function print() {
 	doc.document.head.querySelector('link').addEventListener('load', () => {
 		doc.window.focus();
 		doc.window.print();
-		// body.removeChild(frame);
+		body.removeChild(frame);
 	});
 }
 
