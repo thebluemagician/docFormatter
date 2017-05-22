@@ -1,11 +1,11 @@
 function printDoc() {
 	const virtualDoc = document.createElement('div');
 	const serializedTree = serialize();
-	virtualDoc.classList.add('doc');
+	virtualDoc.className = 'doc ql-container ql-snow';
 	const rootHTML = `
-		<div class='root nodes'>
+		<div class='root nodes ql-editor'>
 			<div class='title' id='main-title'>${currentData.root.title}</div>
-			<div class='data meta-data'>
+			<div class='data'>
 				${currentData.root.data}
 			</div>
 		</div>
@@ -81,15 +81,21 @@ function print() {
 
 	const body = document.querySelector('body');
 	const frame = document.createElement('iframe');
+	const style = document.createElement('link');
+	style.href = 'https://cdn.quilljs.com/1.1.10/quill.snow.css';
+	style.media = 'print';
+	style.rel = 'stylesheet';
 	frame.setAttribute('src', 'about:blank');
 	frame.setAttribute('name', 'doc');
 	body.appendChild(frame);
 	const doc = window.frames['doc'];
-	doc.document.body.innerHTML += `
-		${demoStyle}
-	`;
+	// doc.document.body.innerHTML += `
+	// 	${demoStyle}
+	// `;
+	doc.document.head.appendChild(style);
 	doc.document.body.appendChild(virtualDoc);
-
+	console.log(doc.document.head.outerHTML);
+	console.log(doc.document.body.outerHTML);
 	// console.log(doc.document.body.innerHTML);
 	doc.window.focus();
 	doc.window.print();
@@ -98,64 +104,64 @@ function print() {
 
 // STYLES FOR THE PRINT
 
-var demoStyle = `
-	<style>
-		html{
-			background-color:#fff;
-			margin:0px;
-		}
-		body{
-			max-width:21.00cm;
-			max-height:29.70cm;
+// var demoStyle = `
+// 	<style>
+// 		html{
+// 			background-color:#fff;
+// 			margin:0px;
+// 		}
+// 		body{
+// 			max-width:21.00cm;
+// 			max-height:29.70cm;
 
-			margin:5.2cm 4.401cm 5.2cm 4.401cm;			
-			border:0px solid black;
-			page-break-after:right;
-		}
-		@page{
-			size:auto;
-			margin:0mm;
-		}
-		/*
-		body::first-line {
-			font-size: 14px;
-			font-weight: bold;
-			text-decoration: none;
-			text-align: right;
-		} */
-		.nodes {
-			display: block;
-			text-align: justify;
-		}
+// 			margin:5.2cm 4.401cm 5.2cm 4.401cm;			
+// 			border:0px solid black;
+// 			page-break-after:right;
+// 		}
+// 		@page{
+// 			size:auto;
+// 			margin:0mm;
+// 		}
+// 		/*
+// 		body::first-line {
+// 			font-size: 14px;
+// 			font-weight: bold;
+// 			text-decoration: none;
+// 			text-align: right;
+// 		} */
+// 		.nodes {
+// 			display: block;
+// 			text-align: justify;
+// 		}
 
-		.nodes > .nodes {
-			padding: 15px
-            margin-left:0;
-			padding-left:0;
-		}
+// 		.nodes > .nodes {
+// 			padding: 15px
+//             margin-left:0;
+// 			padding-left:0;
+// 		}
 
-		.nodes .title {
-			font-size: 12px;
-			font-weight: bold;
-		}
+// 		.nodes .title {
+// 			font-size: 12px;
+// 			font-weight: bold;
+// 		}
 
-		.nodes .data {
-			font-size: 10px;
-			text-align:justify;
-		}
+// 		.nodes .data {
+// 			font-size: 10px;
+// 			text-align:justify;
+// 		}
 
-		#main-title, .meta-data{
-			font-weight:bold;
-			font-size:14px;
-			text-align:center;
-			width:280px;
-			margin:0 auto;
-		}
-		.meta-data>p{
-			font-size:10px;
-			font-weight:normal;
-			text-align:center;
-			margin-bottom:20px;
-		}
-	</style>
-`;
+// 		#main-title, .meta-data{
+// 			font-weight:bold;
+// 			font-size:14px;
+// 			text-align:center;
+// 			width:280px;
+// 			margin:0 auto;
+// 		}
+// 		.meta-data>p{
+// 			font-size:10px;
+// 			font-weight:normal;
+// 			text-align:center;
+// 			margin-bottom:20px;
+// 		}
+// 	</style>
+// `;
