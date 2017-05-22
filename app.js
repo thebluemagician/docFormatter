@@ -19,7 +19,7 @@ function pushToLocalStorage() {
 
 const toolbarOptions = [
   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  ['blockquote', 'code-block', 'image'],
+  ['blockquote', 'code-block', 'image', 'formula'],
   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
   [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
   [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
@@ -34,7 +34,8 @@ const quill = new Quill('#editor', {
 	theme: 'snow',
 	modules: {
 		toolbar: toolbarOptions
-	}
+	},
+	placeholder: 'Compose this section...'
 });
 
 //Modal and tooltip container
@@ -104,7 +105,7 @@ tree.addEventListener('click', e => {
 	if ([...target.classList].includes('fa-plus')) {
 		const node = getNodeNo.next().value;	
 		currentData[node] = {};
-		currentData[node]['data'] = 'Start writing...';
+		currentData[node]['data'] = '';
 		currentData[node]['title'] = 'Untitled';
 		currentData[node]['parent'] = parent.id;
 		renderNode(parent, node);

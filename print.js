@@ -4,10 +4,8 @@ function printDoc() {
 	virtualDoc.className = 'doc ql-container ql-snow';
 	const rootHTML = `
 		<div class='root nodes ql-editor'>
-			<div class='title' id='main-title'>${currentData.root.title}</div>
-			<div class='data'>
-				${currentData.root.data}
-			</div>
+			<h1 class='ql-align-justify' id='main-title'>${currentData.root.title}</h1>
+			${currentData.root.data}
 		</div>
 	`;
 	
@@ -58,10 +56,8 @@ function recursiveRender(array, parent, serializedTree) {
 		node.classList.add(i);
 		node.classList.add('nodes');
 		node.innerHTML = `
-			<div class='title'>${currentData[i].title}</div>
-			<div class='data'>
-				${currentData[i].data}
-			</div>
+			<h2 class='ql-align-justify title'>${currentData[i].title}</h2>
+			${currentData[i].data}
 		`;
 		parent.appendChild(node);
 
@@ -81,87 +77,39 @@ function print() {
 
 	const body = document.querySelector('body');
 	const frame = document.createElement('iframe');
-	const style = document.createElement('link');
-	style.href = 'https://cdn.quilljs.com/1.1.10/quill.snow.css';
-	style.media = 'print';
-	style.rel = 'stylesheet';
 	frame.setAttribute('src', 'about:blank');
 	frame.setAttribute('name', 'doc');
 	body.appendChild(frame);
 	const doc = window.frames['doc'];
+	console.log(doc.document.documentElement);
 	// doc.document.body.innerHTML += `
 	// 	${demoStyle}
 	// `;
-	doc.document.head.appendChild(style);
-	doc.document.body.appendChild(virtualDoc);
+	doc.document.head.innerHTML += `<title>Paper</title>
+		<meta charset="UTF-8">
+		<link href="quill.snow.css" rel="stylesheet">
+		<style>
+		${style}
+		</style>
+		`;
+	doc.document.body.innerHTML += virtualDoc.outerHTML;
 	console.log(doc.document.head.outerHTML);
 	console.log(doc.document.body.outerHTML);
-	// console.log(doc.document.body.innerHTML);
-	doc.window.focus();
-	doc.window.print();
-	body.removeChild(frame);
+	doc.document.head.querySelector('link').addEventListener('load', () => {
+		doc.window.focus();
+		doc.window.print();
+		// body.removeChild(frame);
+	});
 }
 
 // STYLES FOR THE PRINT
 
-// var demoStyle = `
-// 	<style>
-// 		html{
-// 			background-color:#fff;
-// 			margin:0px;
-// 		}
-// 		body{
-// 			max-width:21.00cm;
-// 			max-height:29.70cm;
-
-// 			margin:5.2cm 4.401cm 5.2cm 4.401cm;			
-// 			border:0px solid black;
-// 			page-break-after:right;
-// 		}
-// 		@page{
-// 			size:auto;
-// 			margin:0mm;
-// 		}
-// 		/*
-// 		body::first-line {
-// 			font-size: 14px;
-// 			font-weight: bold;
-// 			text-decoration: none;
-// 			text-align: right;
-// 		} */
-// 		.nodes {
-// 			display: block;
-// 			text-align: justify;
-// 		}
-
-// 		.nodes > .nodes {
-// 			padding: 15px
-//             margin-left:0;
-// 			padding-left:0;
-// 		}
-
-// 		.nodes .title {
-// 			font-size: 12px;
-// 			font-weight: bold;
-// 		}
-
-// 		.nodes .data {
-// 			font-size: 10px;
-// 			text-align:justify;
-// 		}
-
-// 		#main-title, .meta-data{
-// 			font-weight:bold;
-// 			font-size:14px;
-// 			text-align:center;
-// 			width:280px;
-// 			margin:0 auto;
-// 		}
-// 		.meta-data>p{
-// 			font-size:10px;
-// 			font-weight:normal;
-// 			text-align:center;
-// 			margin-bottom:20px;
-// 		}
-// 	</style>
-// `;
+var style = `
+	.ql-container.ql-snow {
+		border: 0;
+	}
+	.ql-container, .ql-editor {
+		overflow-y: visible;
+		text-align: justify;
+	}
+`;
