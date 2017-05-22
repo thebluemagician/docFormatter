@@ -81,7 +81,6 @@ function print() {
 	frame.setAttribute('name', 'doc');
 	body.appendChild(frame);
 	const doc = window.frames['doc'];
-	console.log(doc.document.documentElement);
 	doc.document.head.innerHTML += `<title>Paper</title>
 		<meta charset="UTF-8">
 		<link href="quill.snow.css" rel="stylesheet">
@@ -90,8 +89,6 @@ function print() {
 		</style>
 		`;
 	doc.document.body.innerHTML += virtualDoc.outerHTML;
-	console.log(doc.document.head.outerHTML);
-	console.log(doc.document.body.outerHTML);
 	doc.document.head.querySelector('link').addEventListener('load', () => {
 		doc.window.focus();
 		doc.window.print();
