@@ -109,4 +109,9 @@ var style = `
 		overflow-y: visible;
 		text-align: justify;
 	}
+
+	@page:first {
+		margin-top: 0mm;
+		margin-bottom: 0mm;
+	}
 `;
